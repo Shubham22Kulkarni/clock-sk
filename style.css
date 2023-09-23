@@ -1,0 +1,263 @@
+* {
+}
+
+:root {
+	--numbers-color: #fff;
+	--body-bg-color: #d0e2e8;
+	--clock-bg-color: #c9d5e0;
+	--circle-color: rgba(0, 0, 0, 0.75);
+	--clock-box-shadow: 45px 45px 45px -15px rgba(0, 0, 0, 0.15), inset 15px 15px 10px rgba(167, 167, 167, 0.75),
+		-15px -15px 35px rgba(167, 167, 167, 0.55), inset -2px -2px 15px rgba(0, 0, 0, 0.2);
+	---numbers-bg: #4885aa;
+	--numbers-box-shadow: 7px 7px 22px #152b4a66, inset 7px 7px 7px rgba(255, 255, 255, 0.55),
+		-9px -9px 15px rgb(154, 154, 154);
+	--numbers-before-shadow: 0 0 0 1px #e91e63, 0 0 0 3px #fff, 0 0 5px 5px rgba(0, 0, 0, 0.15);
+
+	--toggle-box-shadow: inset 0 1px 4px hsla(0, 0%, 0%, 0.5), inset 0 0 10px hsla(0, 0%, 0%, 0.5),
+		0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 -1px 2px 2px hsla(0, 0%, 0%, 0.25);
+}
+
+.dark-theme {
+	--numbers-color: #fff;
+	--body-bg-color: #292b2c;
+	--clock-bg-color: #393c3e;
+	--circle-color: rgba(255, 255, 255, 0.75);
+	--clock-box-shadow: 45px 45px 45px -15px rgba(255, 255, 255, 0.15), inset 15px 15px 10px rgba(0, 0, 0, 0.75),
+		-15px -15px 35px rgba(100, 100, 100, 0.55), inset -2px -2px 15px rgba(255, 255, 255, 0.2);
+	---numbers-bg: #152b4a;
+	--numbers-box-shadow: 7px 7px 22px #78869a66, inset 7px 7px 7px rgba(0, 0, 0, 0.55), -9px -9px 15px rgba(0, 0, 0, 1);
+	--numbers-before-shadow: 0 0 0 1px #e91e63, 0 0 0 3px #000, 0 0 5px 5px rgba(0, 0, 0, 0.15);
+	--toggle-box-shadow: inset 0 1px 4px hsla(0, 0%, 100%, 0.5), inset 0 0 10px hsla(0, 0%, 100%, 0.5),
+		0 0 0 1px hsla(0, 0%, 100%, 0.1), 0 -1px 2px 2px hsla(0, 0%, 100%, 0.25);
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 40px;
+	min-height: 100vh;
+	background: var(--body-bg-color);
+}
+
+.clock {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--clock-bg-color);
+	border-radius: 50px;
+	box-shadow: var(--clock-box-shadow);
+}
+
+.numbers {
+	position: absolute;
+	top: 30px;
+	background: var(---numbers-bg);
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: var(--numbers-box-shadow);
+}
+
+.numbers::before {
+	content: "";
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: #e91e63;
+	z-index: 10000;
+	box-shadow: var(--numbers-before-shadow);
+}
+.numbers span {
+	position: absolute;
+	inset: 15px;
+	text-align: center;
+	color: var(--numbers-color);
+	font-size: 1.25em;
+	transform: rotate(calc(30deg * var(--i)));
+}
+
+.numbers span b {
+	font-weight: 400;
+	display: inline-block;
+	transform: rotate(calc(-30deg * var(--i)));
+}
+
+.numbers .circle {
+	position: absolute;
+	/* border: 1px solid var(--circle-color); */
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	z-index: 10;
+}
+
+.numbers .circle i {
+	position: absolute;
+	width: 6px;
+	height: 50%;
+	border-radius: 50%;
+	background: var(--clr);
+	opacity: 0.75;
+	transform-origin: bottom;
+	transform: scaleY(0.9);
+}
+
+.numbers .circle#sec i {
+	width: 2px;
+}
+
+.numbers .circle#min i {
+	width: 4px;
+}
+
+.numbers .circle::before {
+	content: "";
+	position: absolute;
+	top: -6px;
+	left: 50%;
+	width: 10px;
+	height: 10px;
+	background: var(--clr);
+	border-radius: 50%;
+	transform: translateX(-50%);
+	box-shadow: 0 0 20px var(--clr), 0 0 20px var(--clr);
+}
+
+#time {
+	position: absolute;
+	bottom: 35px;
+	display: flex;
+	padding: 10px 20px;
+	font-size: 2em;
+	font-weight: 600;
+	border-radius: 40px;
+	background: var(---numbers-bg);
+	box-shadow: var(--numbers-box-shadow);
+}
+
+#time div {
+	position: relative;
+	width: 60px;
+	text-align: center;
+	color: var(--clr);
+	opacity: 0.75;
+}
+
+#time div:last-child {
+	font-size: 0.5em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 500;
+}
+
+#time div:nth-child(1)::after,
+#time div:nth-child(2)::after {
+	content: ":";
+	position: absolute;
+	right: -4px;
+}
+
+#time div:nth-child(1)::after,
+#time div:nth-child(2)::after {
+	animation: animate 1s steps(1) infinite;
+}
+
+@keyframes animate {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
+@media screen and (min-width: 640px) {
+	.clock {
+		width: 450px;
+		height: 550px;
+		border-top-left-radius: 250px;
+		border-top-right-radius: 250px;
+	}
+	.numbers {
+		width: 390px;
+		height: 390px;
+	}
+	.numbers .circle {
+		width: 280px;
+		height: 280px;
+	}
+	.numbers .circle#min {
+		width: 230px;
+		height: 230px;
+	}
+	.numbers .circle#hrs {
+		width: 180px;
+		height: 180px;
+	}
+}
+
+@media screen and (max-width: 639px) {
+	.clock {
+		width: 370px;
+		height: 460px;
+		border-top-left-radius: 200px;
+		border-top-right-radius: 200px;
+	}
+	.numbers {
+		width: 300px;
+		height: 300px;
+	}
+	.numbers .circle {
+		width: 210px;
+		height: 210px;
+	}
+	.numbers .circle#min {
+		width: 170px;
+		height: 170px;
+	}
+	.numbers .circle#hrs {
+		width: 130px;
+		height: 130px;
+	}
+}
+
+.checkbox-wrapper-25 input[type="checkbox"] {
+	background-image: -webkit-linear-gradient(hsla(0, 0%, 0%, 0.1), hsla(0, 0%, 100%, 0.1)),
+		-webkit-linear-gradient(left, rgb(34, 35, 36) 50%, rgb(255, 225, 0) 50%);
+	background-size: 100% 100%, 200% 100%;
+	background-position: 0 0, 15px 0;
+	border-radius: 25px;
+	box-shadow: var(--toggle-box-shadow);
+	cursor: pointer;
+	height: 26px;
+	border: 1px solid white;
+	padding-right: 25px;
+	width: 75px;
+	-webkit-appearance: none;
+	-webkit-transition: 0.25s;
+}
+
+.checkbox-wrapper-25 input[type="checkbox"]:after {
+	background-color: #eee;
+	background-image: -webkit-linear-gradient(hsla(0, 0%, 100%, 0.1), hsla(0, 0%, 0%, 0.1));
+	border-radius: 25px;
+	box-shadow: inset 0 1px 1px 1px hsla(0, 0%, 100%, 1), inset 0 -1px 1px 1px hsla(0, 0%, 0%, 0.25),
+		0 1px 3px 1px hsla(0, 0%, 0%, 0.5), 0 0 2px hsla(0, 0%, 0%, 0.25);
+	content: "";
+	display: block;
+	height: 25px;
+	width: 50px;
+}
+
+.checkbox-wrapper-25 input[type="checkbox"]:checked {
+	background-position: 0 0, 35px 0;
+	padding-left: 25px;
+	padding-right: 0;
+}
